@@ -11,28 +11,30 @@ services:
   backend-user:
     image: udagram-api-user
     environment:
-      POSTGRES_USERNAME: spencer
-      POSTGRES_PASSWORD: P3nis08!
-      POSTGRES_DB: steggell-micro-dev.cnc6zxkamku6.us-east-1.rds.amazonaws.com
-      POSTGRES_HOST: postgres
-      AWS_REGION: us-east-1
-      AWS_PROFILE: default
-      AWS_BUCKET: steggell-micro-bucket
-      JWT_SECRET: testing
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_HOST: $POSTGRES_HOST
+      AWS_REGION: $AWS_REGION
+      AWS_PROFILE: $AWS_PROFILE
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      
       URL: "http://localhost:8100"
   backend-feed:
     image: udagram-api-feed
     volumes:
       - $HOME/.aws:/root/.aws
     environment:
-      POSTGRES_USERNAME: spencer
-      POSTGRES_PASSWORD: P3nis08!
-      POSTGRES_DB: steggell-micro-dev.cnc6zxkamku6.us-east-1.rds.amazonaws.com
-      POSTGRES_HOST: postgres
-      AWS_REGION: us-east-1
-      AWS_PROFILE: default
-      AWS_BUCKET: steggell-micro-bucket
-      JWT_SECRET: testing
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_HOST: $POSTGRES_HOST
+      AWS_REGION: $AWS_REGION
+      AWS_PROFILE: $AWS_PROFILE
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      
       URL: "http://localhost:8100"
   frontend:
     image: udagram-frontend:local
