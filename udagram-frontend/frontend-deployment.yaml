@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: ssteggell/udagram-frontend:v3
+        name: frontend
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "2048Mi"
+            cpu: "500m"
+          limits:
+            memory: "2048Mi"
+            cpu: "500m"   
+        ports:
+        - containerPort: 8001
+         env:
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: URL
+        - name: AWS_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_BUCKET
+        - name: AWS_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_PROFILE
+        - name: AWS_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_REGION
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: JWT_SECRET
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+
+              key: POSTGRES_DB
+59
+        - name: POSTGRES_HOST
+60
+          valueFrom:
+61
+            configMapKeyRef:
+62
+              name: env-config
+63
+              key: POSTGRES_HOST
+64
+        - name: POSTGRES_PASSWORD
+65
+          valueFrom:
+66
+            secretKeyRef:
+67
+              name: env-secret
+68
+              key: POSTGRES_PASSWORD
+69
+        - name: POSTGRES_USERNAME
+70
+          valueFrom:
+71
+            secretKeyRef:
+72
+              name: env-secret
+73
+              key: POSTGRES_USERNAME
+74
+        volumeMounts:
+75
+        - name: aws-secret
+76
+          mountPath: "/root/.aws/"
+77
+          readOnly: true
+78
+      restartPolicy: Always
+79
+      volumes:
+80
+      - name: aws-secret
+81
+        secret:
+82
+          secretName: aws-secret
