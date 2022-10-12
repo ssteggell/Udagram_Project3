@@ -15,7 +15,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: ssteggell/udagram-frontend:v6
+      - image: ssteggell/udagram-frontend:v7
         name: frontend
         imagePullPolicy: Always
         resources:
